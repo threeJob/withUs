@@ -64,6 +64,8 @@ class FirstScreen extends StatelessWidget {
             SizedBox(height: screenHeight * 0.005),
             RoundedButtonForDialog(
               text: "로그인하기",
+              color: Colors.white,
+              textColor: kMainColor,
               press: () => Get.to(() => LoginScreen()),
             )
           ],

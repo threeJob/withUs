@@ -32,16 +32,22 @@ class RoundedButtonForDialog extends StatelessWidget {
 
   Widget newElevatedButton() {
     return ElevatedButton(
+      onPressed: press,
+      style: ElevatedButton.styleFrom(
+          shape:
+              RoundedRectangleBorder(borderRadius: BorderRadius.circular(29)),
+          side: const BorderSide(
+            width: 1.0,
+            color: kMainColor,
+          ),
+          backgroundColor: color,
+          padding: const EdgeInsets.symmetric(horizontal: 40, vertical: 3),
+          textStyle: TextStyle(
+              color: textColor, fontSize: 14, fontWeight: FontWeight.w500)),
       child: Text(
         text,
         style: TextStyle(color: textColor),
       ),
-      onPressed: press,
-      style: ElevatedButton.styleFrom(
-          primary: color,
-          padding: EdgeInsets.symmetric(horizontal: 40, vertical: 3),
-          textStyle: TextStyle(
-              color: textColor, fontSize: 14, fontWeight: FontWeight.w500)),
     );
   }
 }
