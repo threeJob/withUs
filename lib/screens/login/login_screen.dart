@@ -30,7 +30,7 @@ class LoginScreen extends StatelessWidget {
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              const Padding(padding: EdgeInsets.only(top: 20)),
+              const Padding(padding: EdgeInsets.only(top: 10)),
               Image.asset(
                 "assets/images/logo.png",
                 width: screenWidth * 0.5,
@@ -45,43 +45,100 @@ class LoginScreen extends StatelessWidget {
               RoundedButtonForDialog(
                 url: "assets/images/kakao_logo.png",
                 text: "카카오톡으로 로그인하기",
+                borderSize: 15,
                 color: Colors.white,
                 textColor: kMainColor,
-                borderColor: Colors.grey,
+                borderColor: Colors.grey.withOpacity(0.3),
                 press: () {
                   Get.to(() => LoginScreen());
                 },
               ),
               RoundedButtonForDialog(
                 url: "assets/images/naver_logo.png",
+                borderSize: 15,
                 text: "네이버로 로그인하기",
                 color: Colors.white,
                 textColor: kMainColor,
-                borderColor: Colors.grey,
+                borderColor: Colors.grey.withOpacity(0.3),
                 press: () {
                   Get.to(() => LoginScreen());
                 },
               ),
               RoundedButtonForDialog(
                 url: "assets/images/google_logo.png",
+                borderSize: 15,
                 text: "Google로 로그인하기",
                 color: Colors.white,
                 textColor: kMainColor,
-                borderColor: Colors.grey,
+                borderColor: Colors.grey.withOpacity(0.3),
                 press: () {
                   Get.to(() => LoginScreen());
                 },
               ),
               RoundedButtonForDialog(
                 url: "assets/images/apple_logo.png",
+                borderSize: 15,
                 text: "Apple ID로 로그인하기",
                 color: Colors.white,
                 textColor: kMainColor,
-                borderColor: Colors.grey,
+                borderColor: Colors.grey.withOpacity(0.3),
                 press: () {
                   Get.to(() => LoginScreen());
                 },
               ),
+              Padding(
+                padding: EdgeInsets.symmetric(
+                    horizontal: screenWidth * 0.15,
+                    vertical: screenHeight * 0.04),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    SizedBox(
+                      width: screenWidth * 0.18,
+                      height: 1,
+                      child: DecoratedBox(
+                        decoration:
+                            BoxDecoration(color: Colors.grey.withOpacity(0.5)),
+                      ),
+                    ),
+                    const Text("or Sign up with"),
+                    SizedBox(
+                      width: screenWidth * 0.18,
+                      height: 1,
+                      child: DecoratedBox(
+                        decoration:
+                            BoxDecoration(color: Colors.grey.withOpacity(0.5)),
+                      ),
+                    )
+                  ],
+                ),
+              ),
+              Padding(
+                padding: EdgeInsets.symmetric(
+                  horizontal: screenWidth * 0.25,
+                ),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Image.asset(
+                      "assets/images/kakao_logo.png",
+                      height: screenHeight * 0.04,
+                    ),
+                    Image.asset(
+                      "assets/images/naver_logo.png",
+                      height: screenHeight * 0.04,
+                    ),
+                    Image.asset(
+                      "assets/images/google_logo.png",
+                      height: screenHeight * 0.04,
+                    ),
+                    Image.asset(
+                      "assets/images/apple_logo.png",
+                      height: screenHeight * 0.04,
+                    )
+                  ],
+                ),
+              )
             ],
           ),
         ));

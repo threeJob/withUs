@@ -6,6 +6,7 @@ class RoundedButtonForDialog extends StatelessWidget {
   final String url;
   final VoidCallback press;
   final Color color, textColor, borderColor;
+  final double borderSize;
   const RoundedButtonForDialog({
     Key? key,
     required this.text,
@@ -14,6 +15,7 @@ class RoundedButtonForDialog extends StatelessWidget {
     this.color = kMainColor,
     this.textColor = Colors.white,
     this.borderColor = kMainColor,
+    this.borderSize = 29,
   }) : super(key: key);
 
   @override
@@ -24,7 +26,7 @@ class RoundedButtonForDialog extends StatelessWidget {
       width: size.width * 0.7,
       height: size.height * 0.05,
       child: ClipRRect(
-        borderRadius: BorderRadius.circular(29),
+        borderRadius: BorderRadius.circular(borderSize),
         child: newElevatedButton(),
       ),
     );
@@ -37,8 +39,8 @@ class RoundedButtonForDialog extends StatelessWidget {
     return ElevatedButton(
       onPressed: press,
       style: ElevatedButton.styleFrom(
-          shape:
-              RoundedRectangleBorder(borderRadius: BorderRadius.circular(29)),
+          shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(borderSize)),
           side: BorderSide(
             width: 1.0,
             color: borderColor,
