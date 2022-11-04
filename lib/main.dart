@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:kakao_flutter_sdk_common/kakao_flutter_sdk_common.dart';
 import 'package:with_us/env.dart';
 import 'package:with_us/constants.dart';
@@ -21,7 +22,7 @@ class MyApp extends StatelessWidget {
         if (snapshot.connectionState == ConnectionState.waiting) {
           return const MaterialApp(home: SplashScreen());
         } else {
-          return MaterialApp(
+          return GetMaterialApp(
             title: 'Flutter',
             theme: ThemeData(
               primarySwatch: _createMaterialColor(kMainColor),

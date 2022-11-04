@@ -58,15 +58,20 @@ class FirstScreen extends StatelessWidget {
             const Text("스퍼디카페에 온 것처럼 공부해보세요"),
             SizedBox(height: screenHeight * 0.13),
             RoundedButtonForDialog(
+              url: ' ',
               text: "새로 시작하기",
               press: () => Get.to(() => LoginScreen()),
             ),
             SizedBox(height: screenHeight * 0.005),
             RoundedButtonForDialog(
+              url: ' ',
               text: "로그인하기",
               color: Colors.white,
               textColor: kMainColor,
-              press: () => Get.to(() => LoginScreen()),
+              borderColor: Colors.grey,
+              press: () {
+                Get.to(() => LoginScreen());
+              },
             )
           ],
         )));
