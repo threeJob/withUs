@@ -3,8 +3,14 @@ import 'package:get/get.dart';
 import 'package:with_us/constants.dart';
 import 'package:with_us/screens/first/first_screen.dart';
 import 'package:with_us/screens/splash/splash_screen.dart';
+import 'package:kakao_flutter_sdk/kakao_flutter_sdk.dart';
+
+import 'package:flutter_dotenv/flutter_dotenv.dart';
 
 void main() {
+  // await dotenv.load(fileName: ".env");
+  // KakaoSdk.init(nativeAppKey: dotenv.env['NATIVE_APP_KEY']);
+
   runApp(const MyApp());
 }
 
