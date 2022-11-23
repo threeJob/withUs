@@ -13,12 +13,12 @@ class HomeScreen extends StatelessWidget {
     return CustomScaffold(
       backgroundColor: DScreenColor,
       appBar: AppBar(
-        toolbarHeight: screenHeight * 0.06,
+        toolbarHeight: screenHeight * 0.08,
         iconTheme: IconThemeData(color: Colors.black),
         elevation: 0,
         backgroundColor: DScreenColor,
         title: Padding(
-          padding: const EdgeInsets.only(left: 10),
+          padding: EdgeInsets.only(left: screenWidth * 0.02),
           child: Image.asset(
             "assets/images/logo.png",
             width: screenWidth * 0.25,
@@ -39,7 +39,7 @@ class HomeScreen extends StatelessWidget {
         actions: [
           IconButton(
             constraints: BoxConstraints(),
-            padding: EdgeInsets.only(right: 16),
+            padding: EdgeInsets.only(right: screenWidth * 0.016),
             icon: Icon(
               Icons.notifications_none,
             ),
@@ -58,11 +58,12 @@ class HomeScreen extends StatelessWidget {
               height: screenHeight * 0.18,
               child: ElevatedButton(
                 style: ElevatedButton.styleFrom(
-                  padding: EdgeInsets.all(20),
+                  padding: EdgeInsets.all(screenHeight * 0.02),
                   backgroundColor: Colors.white,
                   elevation: 0,
                   shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(20) //모서리
+                      borderRadius:
+                          BorderRadius.circular(screenHeight * 0.02) //모서리
                       ), //테두리
                   // maximumSize: screenWidth * 0.85,
                   // minimumSize: screenWidth * 0.85
@@ -132,7 +133,7 @@ class HomeScreen extends StatelessWidget {
                     child: ElevatedButton(
                         style: ElevatedButton.styleFrom(
                           backgroundColor: Colors.white,
-                          padding: EdgeInsets.all(20),
+                          padding: EdgeInsets.all(screenHeight * 0.02),
                           elevation: 0,
                           shape: RoundedRectangleBorder(
                               borderRadius: BorderRadius.circular(20) //모서리
@@ -172,10 +173,12 @@ class HomeScreen extends StatelessWidget {
                     child: ElevatedButton(
                         style: ElevatedButton.styleFrom(
                           backgroundColor: Colors.white,
-                          padding: EdgeInsets.fromLTRB(20, 20, 0, 20),
+                          padding: EdgeInsets.fromLTRB(screenHeight * 0.02,
+                              screenHeight * 0.02, 0, screenHeight * 0.02),
                           elevation: 0,
                           shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(20) //모서리
+                              borderRadius: BorderRadius.circular(
+                                  screenHeight * 0.02) //모서리
                               ), //테두리
                           // maximumSize: screenWidth * 0.85,
                           // minimumSize: screenWidth * 0.85
@@ -223,7 +226,8 @@ class HomeScreen extends StatelessWidget {
                     child: ElevatedButton(
                         style: ElevatedButton.styleFrom(
                           backgroundColor: Colors.white,
-                          padding: EdgeInsets.fromLTRB(20, 20, 0, 20),
+                          padding: EdgeInsets.fromLTRB(screenHeight * 0.02,
+                              screenHeight * 0.02, 0, screenHeight * 0.02),
                           elevation: 0,
                           shape: RoundedRectangleBorder(
                               borderRadius: BorderRadius.circular(20) //모서리
@@ -263,7 +267,8 @@ class HomeScreen extends StatelessWidget {
                     child: ElevatedButton(
                         style: ElevatedButton.styleFrom(
                           backgroundColor: Colors.white,
-                          padding: EdgeInsets.fromLTRB(20, 20, 0, 20),
+                          padding: EdgeInsets.fromLTRB(screenHeight * 0.02,
+                              screenHeight * 0.02, 0, screenHeight * 0.02),
                           elevation: 0,
                           shape: RoundedRectangleBorder(
                               borderRadius: BorderRadius.circular(20) //모서리
@@ -313,67 +318,38 @@ class HomeScreen extends StatelessWidget {
             ),
             Container(
               margin: EdgeInsets.fromLTRB(20, 15, 20, 0),
-              height: screenHeight * 0.2,
+              height: screenHeight * 0.15,
               decoration: BoxDecoration(
-                  border: Border.all(width: 1, color: BGreyColor),
-                  borderRadius: BorderRadius.circular(20),
+                  // border: Border.all(width: 1, color: BGreyColor),
+                  borderRadius: BorderRadius.circular(10),
                   color: Colors.white),
               child: ListView.separated(
                 separatorBuilder: (BuildContext context, int index) =>
-                    const Divider(),
-                itemCount: 3,
+                    const Divider(
+                  height: 0,
+                  indent: 10,
+                  endIndent: 10,
+                ),
+                itemCount: 4,
                 itemBuilder: (BuildContext context, int index) {
                   return SizedBox(
-                    height: screenHeight * 0.043,
                     child: ListTile(
-                      leading: Icon(
-                        Icons.home,
-                        color: Colors.grey[850],
+                      visualDensity: VisualDensity(vertical: -4),
+                      title: Text(
+                        '공지사항 1',
+                        style: TextStyle(fontSize: 16),
                       ),
-                      title: Text('공지사항 1'),
                       onTap: () {
                         print('Home is clicked');
                       },
-                      trailing: Icon(Icons.add),
+                      trailing: Text(
+                        '2022.11.23',
+                        style: TextStyle(fontSize: 14),
+                      ),
                     ),
                   );
                 },
                 padding: EdgeInsets.zero,
-                // children: [
-                //   ListTile(
-                //     leading: Icon(
-                //       Icons.home,
-                //       color: Colors.grey[850],
-                //     ),
-                //     title: Text('공지사항 1'),
-                //     onTap: () {
-                //       print('Home is clicked');
-                //     },
-                //     trailing: Icon(Icons.add),
-                //   ),
-                //   ListTile(
-                //     leading: Icon(
-                //       Icons.settings,
-                //       color: Colors.grey[850],
-                //     ),
-                //     title: Text('공지사항 2'),
-                //     onTap: () {
-                //       print('Setting is clicked');
-                //     },
-                //     trailing: Icon(Icons.add),
-                //   ),
-                //   ListTile(
-                //     leading: Icon(
-                //       Icons.question_answer,
-                //       color: Colors.grey[850],
-                //     ),
-                //     title: Text('공지사항 3'),
-                //     onTap: () {
-                //       print('Q&A is clicked');
-                //     },
-                //     trailing: Icon(Icons.add),
-                //   ),
-                // ],
               ),
             ),
           ]),
