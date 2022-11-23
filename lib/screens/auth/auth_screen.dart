@@ -1,5 +1,5 @@
 import 'dart:convert';
-
+import 'dart:math';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
@@ -13,6 +13,8 @@ import 'package:crypto/crypto.dart';
 import 'package:http/http.dart' as http;
 
 //import 'package:mbtmi/screens/profile/profile.dart';
+
+var code;
 
 class AuthScreen extends StatefulWidget {
   @override
@@ -57,7 +59,7 @@ class _AuthScreenState extends State<AuthScreen> {
               textColor: Colors.white,
               borderColor: Colors.grey.withOpacity(0.3),
               press: () {
-                Get.to(() => UserScreen());
+                if (code == otpController.text) Get.to(() => UserScreen());
               },
             ),
           ),
@@ -145,8 +147,18 @@ String getSignature(
   return signatureKey;
 }
 
+String generateCode() {
+  var rand = Random(DateTime.now().millisecond);
+  code = StringBuffer();
+  for (var i = 0; i < 6; i++) {
+    code.write(rand.nextInt(10).toString());
+  }
+  return code.toString();
+}
+
 void sendSMS(String phoneNumber) async {
   print(phoneNumber);
+
   Map data = {
     "type": "SMS",
     "contentType": "COMM",
@@ -154,7 +166,7 @@ void sendSMS(String phoneNumber) async {
     "from": "01025239668",
     "content": "withUs 인증번호입니다.",
     "messages": [
-      {"to": phoneNumber, "content": "withUs 인증번호입니다."}
+      {"to": phoneNumber, "content": "withUs 인증번호입니다.\n[${generateCode()}]"}
     ],
   };
 
