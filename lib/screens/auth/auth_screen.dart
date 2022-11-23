@@ -59,7 +59,11 @@ class _AuthScreenState extends State<AuthScreen> {
               textColor: Colors.white,
               borderColor: Colors.grey.withOpacity(0.3),
               press: () {
-                if (code == otpController.text) Get.to(() => UserScreen());
+                print(code);
+                print(otpController.text);
+                if (code.toString() == otpController.text.toString()) {
+                  Get.to(() => UserScreen());
+                }
               },
             ),
           ),
