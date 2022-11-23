@@ -38,6 +38,11 @@ dependencies:
   kakao_flutter_sdk: ^1.2.2
   get: ^4.6.5
   flutter_dotenv: ^5.0.2
+  dio: ^4.0.0
+  json_annotation: ^4.0.1
+  shared_preferences: ^2.0.5
+  platform: ^3.0.0
+  package_info_plus: ^1.0.4
 
 dev_dependencies:
   flutter_test:

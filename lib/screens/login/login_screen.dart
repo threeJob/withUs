@@ -6,6 +6,8 @@ import 'package:dio/dio.dart';
 import 'package:with_us/constants.dart';
 import 'package:with_us/screens/auth/auth_screen.dart';
 import 'package:with_us/widgets/rounded_button.dart';
+
+import '../home/home_screen.dart';
 //import 'package:mbtmi/screens/profile/profile.dart';
 
 class LoginScreen extends StatelessWidget {
@@ -52,8 +54,7 @@ class LoginScreen extends StatelessWidget {
                 textColor: kMainColor,
                 borderColor: Colors.grey.withOpacity(0.3),
                 press: () {
-                  // kakaoLogin();
-                  Get.to(() => AuthScreen());
+                  kakaoLogin();
                 },
               ),
               RoundedButtonForDialog(
@@ -155,6 +156,11 @@ Future kakaoLogin() async {
     try {
       await UserApi.instance.loginWithKakaoTalk();
       debugPrint('카카오톡으로 로그인 성공');
+      //전화 등록이 완료되었다면
+      //홈으로 이동
+
+      //전화 등록 완료 안되었을 경우
+      Get.toNamed('/authScreen');
     } catch (error) {
       debugPrint('카카오톡으로 로그인 실패 $error');
 
@@ -167,6 +173,8 @@ Future kakaoLogin() async {
       try {
         await UserApi.instance.loginWithKakaoAccount();
         debugPrint('카카오계정으로 로그인 성공');
+        //홈으로 이동
+        Get.to(() => HomeScreen());
       } catch (error) {
         debugPrint('카카오계정으로 로그인 실패 $error');
       }
@@ -175,6 +183,11 @@ Future kakaoLogin() async {
     try {
       await UserApi.instance.loginWithKakaoAccount();
       debugPrint('카카오계정으로 로그인 성공');
+      //전화 등록이 되어있을 경우
+      //홈으로 이동
+
+      //전화 등록 완료 안되었을 경우
+      Get.toNamed('/authScreen');
     } catch (error) {
       debugPrint('카카오계정으로 로그인 실패 $error');
     }
