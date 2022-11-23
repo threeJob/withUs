@@ -1,11 +1,17 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
+import 'package:intl/intl.dart';
 import 'package:kakao_flutter_sdk_user/kakao_flutter_sdk_user.dart';
 import 'package:dio/dio.dart';
 import 'package:with_us/constants.dart';
 import 'package:with_us/screens/auth/user_screen.dart';
 import 'package:with_us/widgets/rounded_button.dart';
+import 'package:crypto/crypto.dart';
+import 'package:http/http.dart' as http;
+
 //import 'package:mbtmi/screens/profile/profile.dart';
 
 class AuthScreen extends StatefulWidget {
@@ -86,14 +92,14 @@ class _AuthScreenState extends State<AuthScreen> {
                 textColor: Colors.white,
                 borderColor: Colors.grey.withOpacity(0.3),
                 press: () {
-                  //
+                  sendSMS(phoneController.text);
                 },
               ),
               const SizedBox(height: 20),
               Padding(
                 padding: EdgeInsets.symmetric(horizontal: screenWidth * 0.18),
                 child: TextField(
-                  controller: phoneController,
+                  controller: otpController,
                   decoration: const InputDecoration(
                     hintText: "Auth Number",
                   ),
@@ -109,4 +115,68 @@ class _AuthScreenState extends State<AuthScreen> {
           ),
         ));
   }
+}
+
+String getSignature(
+    String serviceId, String timeStamp, String accessKey, String secretKey) {
+  var space = " "; // one space
+  var newLine = "\n"; // new line
+  var method = "POST"; // method
+  var url = "/sms/v2/services/$serviceId/messages";
+
+  var buffer = StringBuffer();
+  buffer.write(method);
+  buffer.write(space);
+  buffer.write(url);
+  buffer.write(newLine);
+  buffer.write(timeStamp);
+  buffer.write(newLine);
+  buffer.write(accessKey);
+
+  print(buffer.toString());
+
+  /// signing key
+  var key = utf8.encode(secretKey);
+  var signingKey = Hmac(sha256, key);
+
+  var bytes = utf8.encode(buffer.toString());
+  var digest = signingKey.convert(bytes);
+  String signatureKey = base64.encode(digest.bytes);
+  return signatureKey;
+}
+
+void sendSMS(String phoneNumber) async {
+  print(phoneNumber);
+  Map data = {
+    "type": "SMS",
+    "contentType": "COMM",
+    "countryCode": "82",
+    "from": "01025239668",
+    "content": "withUs 인증번호입니다.",
+    "messages": [
+      {"to": phoneNumber, "content": "withUs 인증번호입니다."}
+    ],
+  };
+
+  final time = DateTime.now().millisecondsSinceEpoch;
+  String timeToString = time.toString();
+
+  String accessKey = "vtkXbd649vAxHwB0vryW";
+  String secretKey = "CsSof9zK0N1Qi7Upgp9gmXPPBzUu4LkMLqqeDEd8";
+  var result = await http.post(
+      Uri.parse(
+          "https://sens.apigw.ntruss.com/sms/v2/services/ncp:sms:kr:296627322498:with_us/messages"),
+      headers: <String, String>{
+        "accept": "application/json",
+        'content-Type': 'application/json; charset=UTF-8',
+        'x-ncp-apigw-timestamp': timeToString,
+        'x-ncp-iam-access-key': accessKey,
+        'x-ncp-apigw-signature-v2': getSignature(
+            'ncp:sms:kr:296627322498:with_us',
+            timeToString,
+            accessKey,
+            secretKey)
+      },
+      body: json.encode(data));
+  print(result.body);
 }
