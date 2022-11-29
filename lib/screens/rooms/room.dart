@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/container.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:with_us/screens/rooms/inside_room.dart';
 
 class Room extends StatefulWidget {
   const Room({super.key});
@@ -32,6 +33,8 @@ class _RoomState extends State<Room> {
           TextButton(
             onPressed: () {
               print("완료 is clicked");
+              Navigator.push(context,
+                  MaterialPageRoute(builder: (context) => const InsideRoom()));
             },
             style: TextButton.styleFrom(
               foregroundColor: Colors.grey.withOpacity(0.5),
@@ -103,7 +106,7 @@ class _RoomState extends State<Room> {
                 ),
                 RadioListTile(
                   value: 1,
-                  groupValue: selectedRoomType,
+                  groupValue: 1,
                   onChanged: (val) {
                     print("Radio Tile pressed $val");
                   },
@@ -117,8 +120,8 @@ class _RoomState extends State<Room> {
                   selected: true,
                 ),
                 RadioListTile(
-                  value: 1,
-                  groupValue: selectedRoomType,
+                  value: 0,
+                  groupValue: 0,
                   onChanged: (val) {
                     print("Radio Tile pressed $val");
                   },
