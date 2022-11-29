@@ -106,7 +106,11 @@ class _RoomState extends State<Room> {
                 ),
                 RadioListTile(
                   value: 1,
+<<<<<<< HEAD
                   groupValue: 1,
+=======
+                  groupValue: selectedRoomType,
+>>>>>>> 256c5e6cb69bd3b5be1cabfad91307f59abd7810
                   onChanged: (val) {
                     print("Radio Tile pressed $val");
                   },
@@ -120,8 +124,13 @@ class _RoomState extends State<Room> {
                   selected: true,
                 ),
                 RadioListTile(
+<<<<<<< HEAD
                   value: 0,
                   groupValue: 0,
+=======
+                  value: 1,
+                  groupValue: selectedRoomType,
+>>>>>>> 256c5e6cb69bd3b5be1cabfad91307f59abd7810
                   onChanged: (val) {
                     print("Radio Tile pressed $val");
                   },
