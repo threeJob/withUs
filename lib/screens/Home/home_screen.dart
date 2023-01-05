@@ -3,6 +3,9 @@ import 'package:get/get.dart';
 import 'package:with_us/custom_scaffold.dart';
 import 'package:with_us/screens/constants.dart';
 import 'package:syncfusion_flutter_gauges/gauges.dart';
+import 'package:http/http.dart' as http;
+
+import '../Room/room_create.dart';
 
 class HomeScreen extends StatelessWidget {
   const HomeScreen({super.key});
@@ -25,17 +28,6 @@ class HomeScreen extends StatelessWidget {
             width: screenWidth * 0.25,
           ),
         ),
-        // IconButton(
-        //   constraints: BoxConstraints(),
-        //   icon: Image.asset(
-        //     "assets/images/logo.png",
-        //     width: screenWidth,
-        //     height: screenHeight,
-        //   ),
-        //   onPressed: () => print('Logo clicked')
-        //   // => Get.to(() => HomeScreen())
-        //   ,
-        // ),
         centerTitle: false,
         actions: [
           IconButton(
@@ -370,6 +362,7 @@ class _home_to_next_buttonState extends State<home_to_next_button> {
                 break;
               case 4:
                 print('방만들기');
+                Get.to(() => RoomCreation());
                 break;
               default:
             }
