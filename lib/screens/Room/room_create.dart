@@ -1,6 +1,7 @@
 import 'dart:convert';
 import 'dart:io';
 import 'package:flutter/material.dart';
+import 'package:flutter/rendering.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter/src/widgets/container.dart';
 import 'package:flutter/src/widgets/framework.dart';
@@ -160,6 +161,7 @@ class _RoomCreationState extends State<RoomCreation> {
                     SizedBox(
                       width: screenWidth * 0.6,
                       child: const TextField(
+                        showCursor: false,
                         cursorColor: Colors.black,
                         textAlign: TextAlign.center,
                         decoration: InputDecoration(
@@ -289,6 +291,7 @@ class _RoomCreationState extends State<RoomCreation> {
                     SizedBox(
                       width: screenWidth * 0.9,
                       child: TagEditor<String>(
+                        minTextFieldWidth: screenWidth * 0.89,
                         cursorColor: Colors.black,
                         length: _values.length,
                         controller: _tc,
@@ -296,6 +299,7 @@ class _RoomCreationState extends State<RoomCreation> {
                         delimiters: const [',', ' '],
                         hasAddButton: false,
                         resetTextOnSubmitted: true,
+                        textInputAction: TextInputAction.join,
                         onSubmitted: (outstandingValue) {
                           setState(() {
                             _values.add(outstandingValue);
@@ -307,6 +311,7 @@ class _RoomCreationState extends State<RoomCreation> {
                           ),
                           border: UnderlineInputBorder(),
                         ),
+
                         onTagChanged: (newValue) {
                           setState(() {
                             _values.add(newValue);
