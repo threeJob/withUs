@@ -41,7 +41,7 @@ class CustomScaffold extends Scaffold {
     myAppBar.actions!.add(IconButton(
         icon: Icon(Icons.menu),
         constraints: BoxConstraints(),
-        padding: EdgeInsets.only(right: 30),
+        padding: EdgeInsets.only(right: 20),
         onPressed: () => !_keyScaffold.currentState!.isEndDrawerOpen
             ? _keyScaffold.currentState!.openEndDrawer()
             : null));

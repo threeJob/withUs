@@ -6,20 +6,21 @@ import 'package:get/get.dart' hide Response;
 import 'package:image_picker/image_picker.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter_spinbox/material.dart';
+import 'package:with_us/screens/Home/home_screen.dart';
 import 'package:with_us/screens/Room/room_screen.dart';
 import '../constants.dart';
 import 'package:super_tag_editor/tag_editor.dart';
 
 enum Content { Public, Private }
 
-class RoomCreation extends StatefulWidget {
-  const RoomCreation({super.key});
+class RoomSettings extends StatefulWidget {
+  const RoomSettings({super.key});
 
   @override
-  State<RoomCreation> createState() => _RoomCreationState();
+  State<RoomSettings> createState() => _RoomSettingsState();
 }
 
-class _RoomCreationState extends State<RoomCreation> {
+class _RoomSettingsState extends State<RoomSettings> {
   Future pickImage() async {
     try {
       var image = await ImagePicker().pickImage(source: ImageSource.gallery);
@@ -76,7 +77,7 @@ class _RoomCreationState extends State<RoomCreation> {
     var screenHeight = MediaQuery.of(context).size.height;
 
     return Scaffold(
-      backgroundColor: DScreenColor,
+      backgroundColor: Colors.white,
       appBar: AppBar(
         leading: ModalRoute.of(context)?.canPop == true
             ? IconButton(
@@ -94,22 +95,38 @@ class _RoomCreationState extends State<RoomCreation> {
         backgroundColor: Colors.white,
         title: Padding(
           padding: EdgeInsets.only(left: screenWidth * 0.02),
-          // child: Text(
-          //   '방 만들기',
-          //   style: TextStyle(color: Colors.black),
-          // )
         ),
         actions: [
           TextButton(
               onPressed: () {
                 if (_formKey.currentState!.validate()) {
                   _formKey.currentState!.save();
-
                   server.postReq();
                 }
                 // _callAPI();
                 print('submit');
-                Get.off(() => RoomScreen());
+                showDialog(
+                    context: context,
+                    builder: (BuildContext context) {
+                      return AlertDialog(
+                          content: const Text('설정을 저장하시겠습니까?'),
+                          insetPadding: const EdgeInsets.fromLTRB(0, 80, 0, 80),
+                          actions: [
+                            TextButton(
+                              child: const Text('확인'),
+                              onPressed: () {
+                                Get.back();
+                              },
+                            ),
+                            TextButton(
+                              child: const Text('취소'),
+                              onPressed: () {
+                                Navigator.of(context).pop();
+                              },
+                            ),
+                          ]);
+                    });
+                // Get.back();
               },
               child: const Text(
                 '완료',
@@ -381,7 +398,25 @@ class _RoomCreationState extends State<RoomCreation> {
                         ),
                       ),
                       Container(
-                        height: 20,
+                        height: 30,
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.all(20.0),
+                        child: Container(
+                          width: screenWidth,
+                          height: 50,
+                          decoration: BoxDecoration(
+                              // border: Border.all(color: Colors.black, width: 1),
+                              borderRadius: BorderRadius.circular(20),
+                              color: Colors.red),
+                          child: TextButton(
+                              onPressed: () => Get.offAll(HomeScreen()),
+                              child: Text(
+                                '방 삭제하기',
+                                style: TextStyle(
+                                    color: Colors.white, fontSize: 18),
+                              )),
+                        ),
                       ),
                     ],
                   ),

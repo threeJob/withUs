@@ -129,7 +129,7 @@ packages:
     source: hosted
     version: "0.13.5"
   http_parser:
-    dependency: "direct main"
+    dependency: transitive
     description:
       name: http_parser
       url: "https://pub.dartlang.org"
@@ -233,6 +233,13 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "0.9.3+3"
+  rxdart:
+    dependency: transitive
+    description:
+      name: rxdart
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "0.27.7"
   simple_observable:
     dependency: transitive
     description:
@@ -245,6 +252,13 @@ packages:
     description: flutter
     source: sdk
     version: "0.0.99"
+  smooth_page_indicator:
+    dependency: "direct main"
+    description:
+      name: smooth_page_indicator
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "1.0.0+2"
   source_span:
     dependency: transitive
     description:
@@ -259,6 +273,13 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "1.10.0"
+  stop_watch_timer:
+    dependency: "direct main"
+    description:
+      name: stop_watch_timer
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "2.0.0"
   stream_channel:
     dependency: transitive
     description:
@@ -308,13 +329,6 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "0.4.12"
-  textfield_tags:
-    dependency: "direct main"
-    description:
-      name: textfield_tags
-      url: "https://pub.dartlang.org"
-    source: hosted
-    version: "2.0.2"
   typed_data:
     dependency: transitive
     description:
