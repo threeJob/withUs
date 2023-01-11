@@ -7,3 +7,4 @@ const DScreenColor = Color(0xFFF2F3F5);
 const TGreyColor = Color(0xFFB8B8B8);
 const BGreyColor = Color(0xFFDDDDDD);
 const BtnGreyColor = Color(0xFFECECEC);
+const BRedColor = Color(0xFFFF0000);

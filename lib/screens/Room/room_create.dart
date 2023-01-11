@@ -1,3 +1,4 @@
+import 'dart:async';
 import 'dart:convert';
 import 'dart:io';
 import 'package:flutter/material.dart';
@@ -43,23 +44,14 @@ class _RoomCreationState extends State<RoomCreation> {
     'kaka@gmail.com',
     'datvu@gmail.com'
   ];
-  List<String> _values = [];
-  FocusNode _focusNode = FocusNode();
-  TextEditingController _tc = TextEditingController();
+  final List<String> _values = [];
+  final FocusNode _focusNode = FocusNode();
+  final TextEditingController _tc = TextEditingController();
 
   _onDelete(index) {
     setState(() {
       _values.removeAt(index);
     });
-  }
-
-  _onPressedModifyTextField() {
-    final text = 'Test';
-    _tc.text = text;
-    _tc.value = _tc.value.copyWith(
-        text: text,
-        selection:
-            TextSelection(baseOffset: text.length, extentOffset: text.length));
   }
 
   @override
@@ -94,10 +86,6 @@ class _RoomCreationState extends State<RoomCreation> {
         backgroundColor: Colors.white,
         title: Padding(
           padding: EdgeInsets.only(left: screenWidth * 0.02),
-          // child: Text(
-          //   '방 만들기',
-          //   style: TextStyle(color: Colors.black),
-          // )
         ),
         actions: [
           TextButton(
@@ -358,26 +346,7 @@ class _RoomCreationState extends State<RoomCreation> {
                             );
                           },
                           suggestionsBoxElevation: 10,
-                          findSuggestions: (String query) {
-                            if (query.isNotEmpty) {
-                              var lowercaseQuery = query.toLowerCase();
-                              return mockResults.where((profile) {
-                                return profile
-                                        .toLowerCase()
-                                        .contains(query.toLowerCase()) ||
-                                    profile
-                                        .toLowerCase()
-                                        .contains(query.toLowerCase());
-                              }).toList(growable: false)
-                                ..sort((a, b) => a
-                                    .toLowerCase()
-                                    .indexOf(lowercaseQuery)
-                                    .compareTo(b
-                                        .toLowerCase()
-                                        .indexOf(lowercaseQuery)));
-                            }
-                            return [];
-                          },
+                          findSuggestions: findSuggestions,
                         ),
                       ),
                       Container(
@@ -390,6 +359,21 @@ class _RoomCreationState extends State<RoomCreation> {
         ),
       ),
     );
+  }
+
+  FutureOr<List<String>> findSuggestions(String query) {
+    if (query.isNotEmpty) {
+      var lowercaseQuery = query.toLowerCase();
+      return mockResults.where((profile) {
+        return profile.toLowerCase().contains(query.toLowerCase()) ||
+            profile.toLowerCase().contains(query.toLowerCase());
+      }).toList(growable: false)
+        ..sort((a, b) => a
+            .toLowerCase()
+            .indexOf(lowercaseQuery)
+            .compareTo(b.toLowerCase().indexOf(lowercaseQuery)));
+    }
+    return [];
   }
 }
 
