@@ -15,4 +15,8 @@
     <style name="NormalTheme" parent="@android:style/Theme.Light.NoTitleBar">
         <item name="android:windowBackground">?android:colorBackground</item>
     </style>
+    <!-- naver login-->
+    <string name="client_id">IYf2G85kB6ausN4b61ou</string>
+    <string name="client_secret">SpXdDXnmlN</string>
+    <string name="client_name">withUs</string>
 </resources>

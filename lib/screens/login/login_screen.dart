@@ -6,7 +6,7 @@ import 'package:dio/dio.dart';
 import 'package:with_us/constants.dart';
 import 'package:with_us/screens/auth/auth_screen.dart';
 import 'package:with_us/widgets/rounded_button.dart';
-
+import 'package:flutter_naver_login/flutter_naver_login.dart';
 import '../home/home_screen.dart';
 //import 'package:mbtmi/screens/profile/profile.dart';
 
@@ -65,7 +65,7 @@ class LoginScreen extends StatelessWidget {
                 textColor: kMainColor,
                 borderColor: Colors.grey.withOpacity(0.3),
                 press: () {
-                  Get.to(() => AuthScreen());
+                  naverLogin();
                 },
               ),
               RoundedButtonForDialog(
@@ -154,7 +154,8 @@ Future kakaoLogin() async {
   // 카카오톡 실행이 가능하면 카카오톡으로 로그인, 아니면 카카오계정으로 로그인
   if (await isKakaoTalkInstalled()) {
     try {
-      await UserApi.instance.loginWithKakaoTalk();
+      final res = await UserApi.instance.loginWithKakaoTalk();
+      print(res);
       debugPrint('카카오톡으로 로그인 성공');
       //전화 등록이 완료되었다면
       //홈으로 이동
@@ -181,7 +182,14 @@ Future kakaoLogin() async {
     }
   } else {
     try {
-      await UserApi.instance.loginWithKakaoAccount();
+      final res = await UserApi.instance.loginWithKakaoAccount();
+      print(res);
+
+      User user;
+
+      user = await UserApi.instance.me();
+
+      print(user);
       debugPrint('카카오계정으로 로그인 성공');
       //전화 등록이 되어있을 경우
       //홈으로 이동
@@ -191,5 +199,16 @@ Future kakaoLogin() async {
     } catch (error) {
       debugPrint('카카오계정으로 로그인 실패 $error');
     }
+  }
+}
+
+Future naverLogin() async {
+  //
+  print("네이버 로그인");
+  try {
+    final NaverLoginResult res = await FlutterNaverLogin.logIn();
+    print(res);
+  } catch (error) {
+    debugPrint(error.toString());
   }
 }

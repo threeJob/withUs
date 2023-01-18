@@ -2,8 +2,10 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
+
 	<key>KAKAO_APP_KEY</key>
 	<string>65b859dd30deee5958972d141cdc0982</string>
+	
 	<key>CADisableMinimumFrameDurationOnPhone</key>
 	<true/>
 	<key>CFBundleDevelopmentRegion</key>
@@ -26,12 +28,24 @@
 	<string>????</string>
 	<key>CFBundleURLTypes</key>
 	<array>
+	<!-- 카카오 -->
 		<dict>
 			<key>CFBundleTypeRole</key>
 			<string>Editor</string>
 			<key>CFBundleURLSchemes</key>
 			<array>
 				<string>65b859dd30deee5958972d141cdc0982</string>
+			</array>
+		</dict>
+		<!-- 네이버 -->
+		<dict>
+			<key>CFBundleTypeRole</key>
+			<string>Editor</string>
+			<key>CFBundleURLName</key>
+			<string>withUs</string>
+			<key>CFBundleURLSchemes</key>
+			<array>
+				<string>withUs</string>
 			</array>
 		</dict>
 	</array>
@@ -60,5 +74,15 @@
 	</array>
 	<key>UIViewControllerBasedStatusBarAppearance</key>
 	<false/>
+	<key>naverConsumerKey</key>
+	<string>IYf2G85kB6ausN4b61ou</string>
+	<key>naverConsumerSecret</key>
+	<string>SpXdDXnmlN</string>
+	<key>naverServiceAppName</key>
+	<string>withUs</string>
+	<key>naverServiceAppUrlScheme</key>
+	<string>withUs</string>
+
+		
 </dict>
 </plist>
