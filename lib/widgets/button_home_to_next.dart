@@ -1,7 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:with_us/main.dart';
 import 'package:with_us/screens/MyRoom/my_room_list.dart';
+import 'package:with_us/screens/Room/finaltest.dart';
 import 'package:with_us/screens/Room/room_create.dart';
+import 'package:with_us/screens/Room/room_notification.dart';
+import 'package:with_us/screens/Room/room_screen.dart';
 import 'package:with_us/screens/constants.dart';
 
 class HomeToNextBtn extends StatefulWidget {
@@ -46,9 +50,11 @@ class _HomeToNextBtnState extends State<HomeToNextBtn> {
             switch (buttonId) {
               case 1:
                 print('공식방');
+                Get.to(() => RoomNotification());
                 break;
               case 2:
                 print('스터디룸');
+                Get.to(() => AllFieldsForm());
                 break;
               case 3:
                 print('내 스터디룸');

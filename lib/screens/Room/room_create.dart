@@ -10,6 +10,7 @@ import 'package:flutter_spinbox/material.dart';
 import 'package:with_us/screens/Room/room_screen.dart';
 import '../constants.dart';
 import 'package:super_tag_editor/tag_editor.dart';
+import 'package:http/http.dart' as http;
 
 enum Content { Public, Private }
 
@@ -92,12 +93,15 @@ class _RoomCreationState extends State<RoomCreation> {
               onPressed: () {
                 if (_formKey.currentState!.validate()) {
                   _formKey.currentState!.save();
+                  // List<int> imageBytes = _image!.readAsBytesSync();
+                  // String base64Image = base64.encode(imageBytes);
+                  // server.postReq();
+                  Navigator.pop(context);
 
-                  server.postReq();
+                  Get.to(() => RoomScreen());
                 }
                 // _callAPI();
                 print('submit');
-                Get.off(() => RoomScreen());
               },
               child: const Text(
                 '완료',
@@ -430,7 +434,7 @@ class _Chip extends StatelessWidget {
 }
 
 class Server {
-  var url = "/test?id";
+  var url = "http://43.201.106.177/api/room";
   Future<void> getReq() async {
     Response response;
     var dio = Dio();
@@ -439,10 +443,24 @@ class Server {
   }
 
   Future<void> postReq() async {
-    Response response;
     var dio = Dio();
-    response = await dio.post(url, data: {});
-    print(response.data.toString());
+    try {
+      Response response = await dio.post(url, data: {
+        "name": "study With Me",
+        "owner": "haesu",
+        "limit": 4,
+        "content": "Study room",
+        "is_lock": true,
+        "thumbnail": "thumbnail.jpg",
+        "music": "song.file",
+        "hashtag": "studywithme"
+      });
+    } catch (e) {
+      Exception(e);
+    } finally {
+      dio.close();
+    }
+    // print(response.data.toString());
   }
 
   Future<void> getReqWzQuery() async {
