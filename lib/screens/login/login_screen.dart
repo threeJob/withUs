@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
@@ -8,7 +10,9 @@ import 'package:with_us/screens/auth/auth_screen.dart';
 import 'package:with_us/widgets/rounded_button.dart';
 import 'package:flutter_naver_login/flutter_naver_login.dart';
 import '../home/home_screen.dart';
+import 'package:webview_flutter/webview_flutter.dart';
 //import 'package:mbtmi/screens/profile/profile.dart';
+import 'package:url_launcher/url_launcher.dart'; // 패키지
 
 class LoginScreen extends StatelessWidget {
   get json => null;
@@ -53,8 +57,12 @@ class LoginScreen extends StatelessWidget {
                 color: Colors.white,
                 textColor: kMainColor,
                 borderColor: Colors.grey.withOpacity(0.3),
-                press: () {
-                  kakaoLogin();
+                press: () async {
+                  await launch(
+                      "https://kauth.kakao.com/oauth/authorize?response_type=code&client_id=0ef1a039df3be155913125fb5a91c4c1&redirect_uri=http://43.201.106.177/api/oauth",
+                      forceWebView: true,
+                      forceSafariVC: true);
+                  // kakaoLogin();
                 },
               ),
               RoundedButtonForDialog(
@@ -191,6 +199,25 @@ Future kakaoLogin() async {
 
       print(user);
       debugPrint('카카오계정으로 로그인 성공');
+
+      Dio dio = Dio();
+
+      var body = <String, dynamic>{
+        "nickname": "민지",
+        "image": "test",
+      };
+
+      await dio
+          .put("http://43.201.106.177/api/v1/photomosaic/save",
+              options: Options(
+                headers: {
+                  "content-type": "application/json",
+                },
+              ),
+              data: jsonEncode(body))
+          .then((response) {})
+          .catchError((error) => print(error));
+
       //전화 등록이 되어있을 경우
       //홈으로 이동
 
