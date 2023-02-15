@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'dart:convert';
 import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -65,9 +66,8 @@ class _RoomCreationState extends State<RoomCreation> {
 
   @override
   Widget build(BuildContext context) {
-    var screenWidth = MediaQuery.of(context).size.width;
-    var screenHeight = MediaQuery.of(context).size.height;
-
+    var screenWidth = Get.width;
+    // var screenHeight = Get.height;
     return Scaffold(
       backgroundColor: DScreenColor,
       appBar: AppBar(
@@ -90,14 +90,14 @@ class _RoomCreationState extends State<RoomCreation> {
               onPressed: () {
                 if (_formKey.currentState!.validate()) {
                   _formKey.currentState!.save();
-                  // List<int> imageBytes = _image!.readAsBytesSync();
-                  // String base64Image = base64.encode(imageBytes);
+                  print(_name);
+                  List<int> imageBytes = _image!.readAsBytesSync();
+                  String base64Image = base64.encode(imageBytes);
+                  server.postReq(_name, _is_lock, _image, limit, _values);
                   // server.postReq();
                   Navigator.pop(context);
-
                   Get.to(() => RoomScreen());
                 }
-                // _callAPI();
                 print('submit');
               },
               child: const Text(
@@ -156,7 +156,14 @@ class _RoomCreationState extends State<RoomCreation> {
                         width: screenWidth * 0.6,
                         child: TextFormField(
                           autovalidateMode: AutovalidateMode.onUserInteraction,
-                          onSaved: (newValue) => _name = newValue as String,
+                          onSaved: (newValue) => setState(() {
+                            _name = newValue as String;
+                            print(_name);
+                          }),
+                          //  {
+                          //   _name = newValue as String;
+                          //   print(_name);
+                          // },
                           inputFormatters: [
                             //방 이름 제약사항
                             // FilteringTextInputFormatter(RegExp('[0-9]'), allow: false)
@@ -191,32 +198,6 @@ class _RoomCreationState extends State<RoomCreation> {
                         color: DScreenColor,
                         height: 10,
                       ),
-                      TextButton(
-                          style: ButtonStyle(
-                              foregroundColor:
-                                  MaterialStateProperty.resolveWith((states) =>
-                                      isValid ? KGreenColor : TGreyColor)),
-                          onPressed: () {
-                            if (_formKey.currentState!.validate()) {
-                              _formKey.currentState!.save();
-                              // List<int> imageBytes = _image!.readAsBytesSync();
-                              // String base64Image = base64.encode(imageBytes);
-                              // server.postReq();
-                              Navigator.pop(context);
-
-                              Get.to(() => RoomScreen());
-                            }
-                            // _callAPI();
-                            print('submit');
-                          },
-                          child: Text(
-                            '완료',
-                            style: TextStyle(
-                                color: (_formKey.currentContext.isBlank!)
-                                    ? KGreenColor
-                                    : TGreyColor,
-                                fontSize: 16),
-                          )),
                       const Padding(
                         padding: EdgeInsets.only(top: 10),
                         child: ListTile(
@@ -240,6 +221,7 @@ class _RoomCreationState extends State<RoomCreation> {
                           onChanged: (value) => setState(() {
                             _content = value;
                             _is_lock = false;
+                            print(_is_lock);
                           }),
                         ),
                       ),
@@ -260,6 +242,7 @@ class _RoomCreationState extends State<RoomCreation> {
                             () {
                               _content = value;
                               _is_lock = true;
+                              print(_is_lock);
                             },
                           ),
                         ),
@@ -304,6 +287,12 @@ class _RoomCreationState extends State<RoomCreation> {
                                   step: 1,
                                   max: 15,
                                   value: 15,
+                                  onChanged: (value) => {
+                                    setState(() {
+                                      limit = value.toInt();
+                                      print(limit);
+                                    })
+                                  },
                                 ),
                               ))),
                       Container(
@@ -344,7 +333,6 @@ class _RoomCreationState extends State<RoomCreation> {
                             ),
                             border: UnderlineInputBorder(),
                           ),
-
                           onTagChanged: (newValue) {
                             setState(() {
                               _values.add(newValue);
@@ -359,7 +347,6 @@ class _RoomCreationState extends State<RoomCreation> {
                           inputFormatters: [
                             FilteringTextInputFormatter.deny(RegExp(r'[/\\]'))
                           ],
-
                           suggestionBuilder: (context, state, data) {
                             return ListTile(
                               key: ObjectKey(data),
@@ -404,28 +391,6 @@ class _RoomCreationState extends State<RoomCreation> {
   }
 }
 
-// void _callAPI() async {
-//   var url = Uri.parse('http://localhost:8080/api/room');
-//   var response = await http.post(url,
-//       body: json.encode({
-//         {
-//           "name": "study With Me",
-//           "owner": "yunju",
-//           "limit": 4,
-//           "content": "Study room",
-//           "is_lock": true,
-//           "password": "1234",
-//           "image": "thumbnail.jpg",
-//           "invite_code": '3586',
-//           "music": "song.file",
-//           "is_valid": true,
-//           "hashtags": "studywithme"
-//         }
-//       }));
-//   print('Response status: ${response.statusCode}');
-//   print('Response body: ${response.body}');
-// }
-
 class _Chip extends StatelessWidget {
   const _Chip({
     required this.label,
@@ -457,7 +422,7 @@ class _Chip extends StatelessWidget {
 }
 
 class Server {
-  var url = "http://43.201.106.177/api/room";
+  var url = "http://43.201.24.189/api/room";
   Future<void> getReq() async {
     Response response;
     var dio = Dio();
@@ -465,21 +430,22 @@ class Server {
     print(response.data.toString());
   }
 
-  Future<void> postReq() async {
+  Future<void> postReq(name, is_lock, thumbnail, limit, hashtags) async {
     var dio = Dio();
     try {
       Response response = await dio.post(url, data: {
-        "name": "study With Me",
+        "name": name,
         "owner": "haesu",
-        "limit": 4,
+        "limit": limit,
         "content": "Study room",
-        "is_lock": true,
+        "is_lock": is_lock,
         "thumbnail": "thumbnail.jpg",
         "music": "song.file",
-        "hashtag": "studywithme"
+        "hashtags": hashtags,
+        "notice": null
       });
     } catch (e) {
-      Exception(e);
+      print(e);
     } finally {
       dio.close();
     }

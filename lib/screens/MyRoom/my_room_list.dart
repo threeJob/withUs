@@ -1,5 +1,6 @@
+import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
+import 'package:get/get.dart' hide Response;
 import 'package:with_us/screens/constants.dart';
 
 class MyRoomList extends StatelessWidget {
@@ -31,7 +32,7 @@ class MyRoomList extends StatelessWidget {
         Padding(
           padding: const EdgeInsets.all(20.0),
           child: Column(
-            children: const [
+            children: [
               RoomTile(
                 color: BRedColor,
                 title: '[대학] 경대생 들어오세요',
@@ -79,6 +80,11 @@ class MyRoomList extends StatelessWidget {
                 time: '12:11:10',
                 imagetitle: 'toss',
               ),
+              TextButton(
+                  onPressed: () {
+                    server.getReq();
+                  },
+                  child: Text("press"))
             ],
           ),
         )
@@ -160,3 +166,45 @@ class _RoomTileState extends State<RoomTile> {
     );
   }
 }
+
+class Server {
+  String id = '1';
+
+  var url = "http://43.201.24.189/api/room/2";
+  Future<void> getReq() async {
+    Response response;
+    var dio = Dio();
+    response = await dio.get(url);
+    print(response.data.toString());
+  }
+
+  Future<void> postReq(name, is_lock, thumbnail, limit, hashtags) async {
+    var dio = Dio();
+    try {
+      Response response = await dio.post(url, data: {
+        "name": name,
+        "owner": "haesu",
+        "limit": limit,
+        "content": "Study room",
+        "is_lock": is_lock,
+        "thumbnail": "thumbnail.jpg",
+        "music": "song.file",
+        "hashtags": hashtags
+      });
+    } catch (e) {
+      print(e);
+    } finally {
+      dio.close();
+    }
+    // print(response.data.toString());
+  }
+
+  Future<void> getReqWzQuery() async {
+    Response response;
+    var dio = Dio();
+    response = await dio.get(url, queryParameters: {});
+    print(response.data.toString());
+  }
+}
+
+Server server = Server();

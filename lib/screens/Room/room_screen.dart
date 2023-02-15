@@ -175,30 +175,33 @@ class _RoomScreenState extends State<RoomScreen> {
                   showModal: false,
                   position: ElTooltipPosition.leftStart,
                   content: Wrap(children: [
-                    ExpandablePanel(
-                      theme: const ExpandableThemeData(
-                          headerAlignment:
-                              ExpandablePanelHeaderAlignment.center,
-                          tapBodyToCollapse: true,
-                          tapBodyToExpand: true,
-                          iconPlacement: ExpandablePanelIconPlacement.right,
-                          iconColor: Colors.white),
-                      header: const Text(
-                        "[공지사항 제목]",
-                        style: TextStyle(color: Colors.white, fontSize: 16),
-                      ),
-                      collapsed: Text(
-                        tooltipContent,
-                        softWrap: true,
-                        maxLines: 2,
-                        overflow: TextOverflow.ellipsis,
-                        style: const TextStyle(color: Colors.white),
-                      ),
-                      expanded: Text(
-                        tooltipContent,
-                        softWrap: true,
-                        overflow: TextOverflow.fade,
-                        style: const TextStyle(color: Colors.white),
+                    ExpandableNotifier(
+                      child: ExpandablePanel(
+                        theme: const ExpandableThemeData(
+                            hasIcon: true,
+                            tapBodyToExpand: true,
+                            headerAlignment:
+                                ExpandablePanelHeaderAlignment.center,
+                            tapBodyToCollapse: true,
+                            bodyAlignment: ExpandablePanelBodyAlignment.left,
+                            iconColor: Colors.white),
+                        // header: const Text(
+                        //   "",
+                        //   style: TextStyle(color: Colors.white, fontSize: 16),
+                        // ),
+                        collapsed: Text(
+                          tooltipContent,
+                          softWrap: true,
+                          maxLines: 2,
+                          overflow: TextOverflow.ellipsis,
+                          style: const TextStyle(color: Colors.white),
+                        ),
+                        expanded: Text(
+                          tooltipContent,
+                          softWrap: true,
+                          overflow: TextOverflow.fade,
+                          style: const TextStyle(color: Colors.white),
+                        ),
                       ),
                     ),
                   ]),
