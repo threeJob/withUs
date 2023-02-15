@@ -22,9 +22,20 @@ class MyApp extends StatelessWidget {
         );
       },
       theme: ThemeData(
-          primarySwatch: Colors.blue,
-          splashColor: Colors.transparent,
-          highlightColor: Colors.transparent),
+        scaffoldBackgroundColor: Colors.white,
+        primarySwatch: Colors.blue,
+        splashColor: Colors.transparent,
+        highlightColor: Colors.transparent,
+
+        appBarTheme: const AppBarTheme(
+            backgroundColor: Colors.white,
+            foregroundColor: Colors.black,
+            elevation: 0,
+            iconTheme: IconThemeData(
+              color: Colors.black,
+            )),
+        // textTheme: cons
+      ),
       home: const HomeScreen(),
     );
   }

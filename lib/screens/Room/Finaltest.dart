@@ -43,7 +43,6 @@ class AllFieldsForm extends StatelessWidget {
       child: Builder(
         builder: (context) {
           final formBloc = BlocProvider.of<AllFieldsFormBloc>(context);
-
           return Scaffold(
             backgroundColor: Colors.white,
             appBar: AppBar(
@@ -142,7 +141,7 @@ class AllFieldsForm extends StatelessWidget {
                             borderSide: BorderSide.none,
                           ),
                         )),
-                  )
+                  ),
                 ],
               ),
             ),

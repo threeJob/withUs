@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:with_us/custom_scaffold.dart';
 import 'package:with_us/screens/constants.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
@@ -11,14 +12,12 @@ class HomeScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    var screenWidth = MediaQuery.of(context).size.width;
-    var screenHeight = MediaQuery.of(context).size.height;
+    var screenWidth = Get.width;
+    var screenHeight = Get.height;
     return CustomScaffold(
       backgroundColor: DScreenColor,
       appBar: AppBar(
         toolbarHeight: screenHeight * 0.08,
-        iconTheme: const IconThemeData(color: Colors.black),
-        elevation: 0,
         backgroundColor: DScreenColor,
         title: Padding(
           padding: EdgeInsets.only(left: screenWidth * 0.02),
@@ -42,7 +41,6 @@ class HomeScreen extends StatelessWidget {
         ],
       ),
       body: SingleChildScrollView(
-        scrollDirection: Axis.vertical,
         child: Padding(
           padding: const EdgeInsets.symmetric(horizontal: 20),
           child: Column(children: [

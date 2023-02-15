@@ -8,7 +8,6 @@ class MyRoomList extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.white,
       appBar: AppBar(
         leading: ModalRoute.of(context)?.canPop == true
             ? IconButton(
@@ -21,12 +20,8 @@ class MyRoomList extends StatelessWidget {
                 },
               )
             : null,
-        iconTheme: const IconThemeData(color: Colors.black),
-        elevation: 0,
-        backgroundColor: Colors.white,
         title: const Text(
           '내 스터디룸',
-          style: TextStyle(color: Colors.black),
         ),
         actions: [
           IconButton(onPressed: () => print('search'), icon: Icon(Icons.search))
@@ -120,15 +115,13 @@ class _RoomTileState extends State<RoomTile> {
     String imagetitle = widget.imagetitle;
     return Row(
       children: [
-        Container(
-          alignment: Alignment.center,
-          width: 80,
-          height: 80,
-          decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(100), color: color),
+        CircleAvatar(
+          radius: 40,
+          backgroundColor: color,
           child: Text(
             imagetitle,
-            style: const TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+            style: const TextStyle(
+                fontSize: 20, fontWeight: FontWeight.bold, color: Colors.black),
           ),
         ),
         const SizedBox(

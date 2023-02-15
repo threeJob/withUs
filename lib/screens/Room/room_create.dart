@@ -1,5 +1,4 @@
 import 'dart:async';
-import 'dart:convert';
 import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -10,7 +9,6 @@ import 'package:flutter_spinbox/material.dart';
 import 'package:with_us/screens/Room/room_screen.dart';
 import '../constants.dart';
 import 'package:super_tag_editor/tag_editor.dart';
-import 'package:http/http.dart' as http;
 
 enum Content { Public, Private }
 
@@ -27,7 +25,7 @@ class _RoomCreationState extends State<RoomCreation> {
       var image = await ImagePicker().pickImage(source: ImageSource.gallery);
       if (image == null) return;
       final imageTemp = File(image.path);
-      setState(() => this._image = imageTemp);
+      setState(() => _image = imageTemp);
     } on PlatformException catch (e) {
       print('Failed to pick image: $e');
     }
@@ -38,6 +36,7 @@ class _RoomCreationState extends State<RoomCreation> {
   int limit = 15;
   Content? _content;
   String _name = '';
+  bool isValid = false;
   final _formKey = GlobalKey<FormState>();
   static const mockResults = [
     'dat@gmail.com',
@@ -61,6 +60,7 @@ class _RoomCreationState extends State<RoomCreation> {
     _is_lock = false;
     limit = 15;
     _content = Content.Public;
+    isValid = false;
   }
 
   @override
@@ -82,14 +82,11 @@ class _RoomCreationState extends State<RoomCreation> {
                 },
               )
             : null,
-        iconTheme: const IconThemeData(color: Colors.black),
-        elevation: 0,
-        backgroundColor: Colors.white,
-        title: Padding(
-          padding: EdgeInsets.only(left: screenWidth * 0.02),
-        ),
         actions: [
           TextButton(
+              style: ButtonStyle(
+                  foregroundColor: MaterialStateProperty.resolveWith(
+                      (states) => isValid ? KGreenColor : TGreyColor)),
               onPressed: () {
                 if (_formKey.currentState!.validate()) {
                   _formKey.currentState!.save();
@@ -173,7 +170,7 @@ class _RoomCreationState extends State<RoomCreation> {
                           showCursor: false,
                           cursorColor: Colors.black,
                           textAlign: TextAlign.center,
-                          decoration: InputDecoration(
+                          decoration: const InputDecoration(
                             focusedBorder: UnderlineInputBorder(
                               borderSide: BorderSide(color: Colors.black),
                             ),
@@ -194,6 +191,32 @@ class _RoomCreationState extends State<RoomCreation> {
                         color: DScreenColor,
                         height: 10,
                       ),
+                      TextButton(
+                          style: ButtonStyle(
+                              foregroundColor:
+                                  MaterialStateProperty.resolveWith((states) =>
+                                      isValid ? KGreenColor : TGreyColor)),
+                          onPressed: () {
+                            if (_formKey.currentState!.validate()) {
+                              _formKey.currentState!.save();
+                              // List<int> imageBytes = _image!.readAsBytesSync();
+                              // String base64Image = base64.encode(imageBytes);
+                              // server.postReq();
+                              Navigator.pop(context);
+
+                              Get.to(() => RoomScreen());
+                            }
+                            // _callAPI();
+                            print('submit');
+                          },
+                          child: Text(
+                            '완료',
+                            style: TextStyle(
+                                color: (_formKey.currentContext.isBlank!)
+                                    ? KGreenColor
+                                    : TGreyColor,
+                                fontSize: 16),
+                          )),
                       const Padding(
                         padding: EdgeInsets.only(top: 10),
                         child: ListTile(

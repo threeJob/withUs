@@ -34,9 +34,9 @@ class _RoomNotificationState extends State<RoomNotification> {
             iconTheme: const IconThemeData(color: Colors.black),
             elevation: 0,
             backgroundColor: Colors.white,
+            foregroundColor: Colors.black,
             title: const Text(
               '공지사항',
-              style: TextStyle(color: Colors.black),
             ),
             actions: [
               IconButton(

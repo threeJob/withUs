@@ -58,7 +58,6 @@ class _RoomScreenState extends State<RoomScreen> {
     var screenWidth = Get.width;
     var screenHeight = Get.height;
     return Scaffold(
-      backgroundColor: Colors.white,
       appBar: AppBar(
         leading: IconButton(
           icon: const Icon(
@@ -69,12 +68,8 @@ class _RoomScreenState extends State<RoomScreen> {
             Get.isPopGestureEnable ? Get.back() : null;
           },
         ),
-        iconTheme: const IconThemeData(color: Colors.black),
-        elevation: 0,
-        backgroundColor: Colors.white,
         title: const Text(
           '방 제목',
-          style: TextStyle(color: Colors.black),
         ),
       ),
       endDrawer: Drawer(
@@ -101,7 +96,7 @@ class _RoomScreenState extends State<RoomScreen> {
                         ),
                         onTap: () {
                           Navigator.pop(context);
-                          Get.to(() => RoomNotification());
+                          Get.to(() => const RoomNotification());
                         },
                       ),
                       ListTile(
@@ -141,14 +136,14 @@ class _RoomScreenState extends State<RoomScreen> {
                     IconButton(
                         onPressed: () {
                           print('나가기 clicked');
-                          Get.offAll(HomeScreen());
+                          Get.offAll(const HomeScreen());
                         },
-                        icon: Icon(Icons.logout_outlined)),
+                        icon: const Icon(Icons.logout_outlined)),
                     Padding(
                       padding: const EdgeInsets.only(right: 20),
                       child: IconButton(
-                          onPressed: () => Get.to(RoomSettings()),
-                          icon: Icon(Icons.settings)),
+                          onPressed: () => Get.to(const RoomSettings()),
+                          icon: const Icon(Icons.settings)),
                     )
                   ],
                 )
@@ -168,7 +163,7 @@ class _RoomScreenState extends State<RoomScreen> {
                     color: DScreenColor),
                 child: FittedBox(
                     alignment: Alignment.center,
-                    child: Row(children: [
+                    child: Row(children: const [
                       Icon(
                         Icons.person,
                         size: 18,
@@ -188,7 +183,7 @@ class _RoomScreenState extends State<RoomScreen> {
                           tapBodyToExpand: true,
                           iconPlacement: ExpandablePanelIconPlacement.right,
                           iconColor: Colors.white),
-                      header: Text(
+                      header: const Text(
                         "[공지사항 제목]",
                         style: TextStyle(color: Colors.white, fontSize: 16),
                       ),
@@ -197,13 +192,13 @@ class _RoomScreenState extends State<RoomScreen> {
                         softWrap: true,
                         maxLines: 2,
                         overflow: TextOverflow.ellipsis,
-                        style: TextStyle(color: Colors.white),
+                        style: const TextStyle(color: Colors.white),
                       ),
                       expanded: Text(
                         tooltipContent,
                         softWrap: true,
                         overflow: TextOverflow.fade,
-                        style: TextStyle(color: Colors.white),
+                        style: const TextStyle(color: Colors.white),
                       ),
                     ),
                   ]),
