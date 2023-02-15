@@ -7,6 +7,7 @@ import 'package:with_us/screens/auth/welcome_screen.dart';
 import 'package:with_us/screens/first/first_screen.dart';
 import 'package:with_us/screens/home/home_screen.dart';
 import 'package:with_us/screens/login/login_screen.dart';
+import 'package:with_us/screens/public/public_screen.dart';
 import 'package:with_us/screens/search/search_screen.dart';
 import 'package:with_us/screens/splash/splash_screen.dart';
 import 'package:kakao_flutter_sdk/kakao_flutter_sdk.dart';
@@ -38,7 +39,7 @@ class MyApp extends StatelessWidget {
           return GetMaterialApp(
             title: 'withUs',
             // initialRoute: '/firstScreen',
-            initialRoute: '/searchScreen',
+            initialRoute: '/publicScreen',
             getPages: [
               GetPage(name: '/loginScreen', page: () => LoginScreen()),
               GetPage(name: '/firstScreen', page: () => const FirstScreen()),
@@ -46,7 +47,8 @@ class MyApp extends StatelessWidget {
               GetPage(name: '/authScreen', page: () => AuthScreen()),
               GetPage(name: '/userScreen', page: () => UserScreen()),
               GetPage(name: '/homeScreen', page: () => HomeScreen()),
-              GetPage(name: '/searchScreen', page: () => const SearchScreen())
+              GetPage(name: '/searchScreen', page: () => const SearchScreen()),
+              GetPage(name: '/publicScreen', page: () => const PublicScreen())
             ],
             theme: ThemeData(
               primarySwatch: _createMaterialColor(kMainColor),
